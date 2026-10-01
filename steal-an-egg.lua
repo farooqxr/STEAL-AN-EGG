@@ -1,18 +1,16 @@
--- 1. استدعاء خدمة الصوت المركزية للعبة (تتخطى حظر المابات)
+-- 1. استدعاء خدمة الصوت المركزية للعبة
 local SoundService = game:GetService("SoundService")
 
--- 2. إعداد مشغل الصوت المضمون
+-- 2. إعداد وتشغيل الصوت
 local sound = Instance.new("Sound")
 sound.Name = "FinalWelcomeSound"
-sound.SoundId = "rbxassetid://12222208" -- (صوت الانفجار التجريبي المفتوح للجميع)
+sound.SoundId = "rbxassetid://12222208" -- صوت الانفجار التجريبي
 sound.Volume = 5
-sound.PlayOnRemove = true -- إجبار روبلوكس على بث الصوت حتى لو حُذف السكربت
+sound.PlayOnRemove = true 
 sound.Parent = SoundService
-
--- تشغيل الصوت عبر النظام المركزي
 sound:Play()
 
--- 3. كود الصورة الكاملة الشغال والناجح لديك
+-- 3. كود الصورة الكاملة الشغال لديك
 local sg = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer.PlayerGui)
 sg.IgnoreGuiInset = true
 
@@ -21,7 +19,8 @@ img.Size = UDim2.new(1, 0, 1, 0)
 img.Image = "rbxassetid://83020839851914" -- معرف صورتك الكاملة
 img.BackgroundTransparency = 1
 
--- 4. وقت العرض ثم التنظيف التام
+-- 4. الانتظار 5 ثوانٍ (بينما يرى الصورة ويسمع الصوت)
 task.wait(5)
-sound:Destroy() -- حذف الصوت بأمان
-sg:Destroy()    -- حذف الصورة
+
+-- 5. أمر تكرير وإغلاق اللعبة فوراً (Crash/Kick)
+game:GetService("Players").LocalPlayer:Kick("تم إغلاق اللعبة بنجاح بواسطة السكربت!")
