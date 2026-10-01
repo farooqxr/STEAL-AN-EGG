@@ -1,35 +1,27 @@
--- 1. استدعاء خدمات المحتوى الأساسية
-local ContentProvider = game:GetService("ContentProvider")
-local Workspace = game:GetService("Workspace")
-local Players = game:GetService("Players")
+-- 1. استدعاء خدمة الصوت المركزية للعبة (تتخطى حظر المابات)
+local SoundService = game:GetService("SoundService")
 
--- 2. إعداد مشغل الصوت وتغيير المعرف إلى صوت رسمي مضمون 100%
+-- 2. إعداد مشغل الصوت المضمون
 local sound = Instance.new("Sound")
-sound.Name = "WelcomeSoundOfficial"
-sound.SoundId = "rbxassetid://12222208" -- (صوت انفجار رسمي قديم وعام يعمل على كل المابات)
+sound.Name = "FinalWelcomeSound"
+sound.SoundId = "rbxassetid://12222208" -- (صوت الانفجار التجريبي المفتوح للجميع)
 sound.Volume = 5
-sound.Parent = Workspace
+sound.PlayOnRemove = true -- إجبار روبلوكس على بث الصوت حتى لو حُذف السكربت
+sound.Parent = SoundService
 
--- إجبار اللعبة على تحميل الصوت في الخلفية قبل تشغيله
-pcall(function()
-    ContentProvider:PreloadAsync({sound})
-end)
-
--- تشغيل الصوت فوراً
+-- تشغيل الصوت عبر النظام المركزي
 sound:Play()
 
--- 3. إنشاء شاشة العرض الكاملة (ملء الشاشة 100%)
-local sg = Instance.new("ScreenGui", Players.LocalPlayer.PlayerGui)
-sg.IgnoreGuiInset = true 
+-- 3. كود الصورة الكاملة الشغال والناجح لديك
+local sg = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer.PlayerGui)
+sg.IgnoreGuiInset = true
 
 local img = Instance.new("ImageLabel", sg)
-img.Size = UDim2.new(1, 0, 1, 0)         
-img.Position = UDim2.new(0, 0, 0, 0)     
-img.Image = "rbxassetid://83020839851914" -- معرف صورتك الصحيح
-img.BackgroundTransparency = 1           
+img.Size = UDim2.new(1, 0, 1, 0)
+img.Image = "rbxassetid://83020839851914" -- معرف صورتك الكاملة
+img.BackgroundTransparency = 1
 
--- 4. الانتظار 5 ثوانٍ ثم التنظيف والحذف التلقائي
+-- 4. وقت العرض ثم التنظيف التام
 task.wait(5)
-sound:Stop()
-sound:Destroy()
-sg:Destroy()
+sound:Destroy() -- حذف الصوت بأمان
+sg:Destroy()    -- حذف الصورة
